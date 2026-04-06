@@ -15440,17 +15440,6 @@ img {
 
 /*                 Carousel                */
 
-.Slider__Wrapper {
-position: relative;
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-gap: 20px;
-}
-
-.keen-slider__slide {
-
-
-}
 
 .button.owl-next {
   background: rgba(0, 0, 0, 0.5);
