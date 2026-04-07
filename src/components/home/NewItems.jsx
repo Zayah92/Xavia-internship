@@ -15,17 +15,16 @@ const NewItems = () => {
   const [loading, setLoading] = useState(true);
 
 
+  const [time, setTime] = useState(Date.now());
 
-const getTimeRemaining = (expiryDate) => {
-  const total = new Date(expiryDate) - new Date();
+const getTimeRemaining = (expiryDate, currentTime) => {
+  const total = new Date(expiryDate) - currentTime;
 
-  if (total <= 0) {
-    return "Expired";
-  }
+  if (total <= 0) return "Expired";
 
-  const seconds = Math.floor((total / 1000) % 60);
-  const minutes = Math.floor((total / 1000 / 60) % 60);
   const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((total / (1000 * 60)) % 60);
+  const seconds = Math.floor((total / 1000) % 60);
 
   return `${hours}h ${minutes}m ${seconds}s`;
 };
@@ -71,11 +70,11 @@ const getTimeRemaining = (expiryDate) => {
     },
   });
 
-const [time, setTime] = useState(Date.now());
+
 
 useEffect(() => {
   const interval = setInterval(() => {
-    setTime(Date.now()); // forces re-render
+    setTime(Date.now()); 
   }, 1000);
 
   return () => clearInterval(interval);
@@ -140,7 +139,7 @@ useEffect(() => {
                         </div>
 
                         <div className="de_countdown">
-                            {getTimeRemaining(item.expiryDate)}
+                            {getTimeRemaining(item.expiryDate, time)}
                           </div>
 
                         {/* Image */}

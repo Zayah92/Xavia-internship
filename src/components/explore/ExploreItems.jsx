@@ -4,8 +4,15 @@ import { Link } from "react-router-dom";
 import AuthorImage from "../../images/author_thumbnail.jpg";
 import nftImage from "../../images/nftImage.jpg";
 
-const getTimeRemaining = (expiryDate) => {
-  const total = new Date(expiryDate) - new Date();
+const API_MAP = {
+  default: "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore",
+  price_low_to_high: "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=price_low_to_high",
+  price_high_to_low: "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=price_high_to_low",
+  likes_high_to_low: "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=likes_high_to_low",
+};
+
+const getTimeRemaining = (expiryDate, currentTime) => {
+  const total = new Date(expiryDate) - currentTime;
 
   if (total <= 0) return "Expired";
 
@@ -22,12 +29,17 @@ const ExploreItems = () => {
   const [visibleCount, setVisibleCount] = useState(8);
   const [filter, setFilter] = useState("default");
 
-  const API_MAP = {
-    default: "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore",
-    price_low_to_high: "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=price_low_to_high",
-    price_high_to_low: "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=price_high_to_low",
-    likes_high_to_low: "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=likes_high_to_low",
-  };
+  
+  const [time, setTime] = useState(Date.now());
+
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(Date.now());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -49,7 +61,6 @@ const ExploreItems = () => {
 
   return (
     <>
-      {/* FILTER */}
       <div className="col-12" data-aos="fade-up">
         <select
           id="filter-items"
@@ -63,7 +74,6 @@ const ExploreItems = () => {
         </select>
       </div>
 
-      {/* CARDS */}
       {(loading
         ? new Array(8).fill(0)
         : items.slice(0, visibleCount)
@@ -95,7 +105,7 @@ const ExploreItems = () => {
               {loading ? (
                 <div className="skeleton-text small"></div>
               ) : (
-                getTimeRemaining(item.expiryDate)
+                getTimeRemaining(item.expiryDate, time) // ✅ FIXED
               )}
             </div>
 
@@ -141,7 +151,6 @@ const ExploreItems = () => {
         </div>
       ))}
 
-      {/* LOAD MORE */}
       {!loading && visibleCount < items.length && (
         <div className="col-12 text-center" data-aos="fade-up">
           <button
