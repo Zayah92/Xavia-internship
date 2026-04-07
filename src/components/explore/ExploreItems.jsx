@@ -11,8 +11,8 @@ const API_MAP = {
   likes_high_to_low: "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=likes_high_to_low",
 };
 
-const getTimeRemaining = (expiryDate) => {
-  const total = new Date(expiryDate) - new Date();
+const getTimeRemaining = (expiryDate, currentTime) => {
+  const total = new Date(expiryDate) - currentTime;
 
   if (total <= 0) return "Expired";
 
@@ -28,6 +28,18 @@ const ExploreItems = () => {
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(8);
   const [filter, setFilter] = useState("default");
+
+  
+  const [time, setTime] = useState(Date.now());
+
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(Date.now());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -93,7 +105,7 @@ const ExploreItems = () => {
               {loading ? (
                 <div className="skeleton-text small"></div>
               ) : (
-                getTimeRemaining(item.expiryDate)
+                getTimeRemaining(item.expiryDate, time) // ✅ FIXED
               )}
             </div>
 
