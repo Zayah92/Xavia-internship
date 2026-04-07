@@ -14,7 +14,7 @@ useEffect(() => {
       setTimeout(() => {
         setSellers(response.data);
         setLoading(false);
-      }, 2000); // 👈 keep for testing
+      }, 2000); // 
     })
     .catch((error) => {
       console.error(error);
@@ -52,7 +52,7 @@ useEffect(() => {
                 : sellers.slice(0, 12).map((seller, index) => (
                 <li key={index}>
                   <div className="author_list_pp">
-                    <Link to="/author">
+                    <Link to={`/author/${seller.authorId}`}>
                       <img
                         className="lazy pp-author"
                         src={seller.authorImage}
