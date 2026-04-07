@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import AuthorBanner from "../images/author_banner.jpg";
 import AuthorItems from "../components/author/AuthorItems";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
 import axios from "axios";
 
 const Author = () => {
   const { authorId } = useParams();
+
   const [author, setAuthor] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [followers, setFollowers] = useState(0);
 
   useEffect(() => {
     axios
@@ -21,6 +24,7 @@ const Author = () => {
 
         setTimeout(() => {
           setAuthor(data || null);
+          setFollowers(data?.followers || 0);
         }, 1000);
       })
       .catch((error) => {
@@ -28,6 +32,16 @@ const Author = () => {
         setAuthor(null);
       });
   }, [authorId]);
+
+  const handleFollowToggle = () => {
+    if (isFollowing) {
+      setFollowers((prev) => prev - 1);
+    } else {
+      setFollowers((prev) => prev + 1);
+    }
+
+    setIsFollowing(!isFollowing);
+  };
 
   return (
     <div id="wrapper">
@@ -91,17 +105,19 @@ const Author = () => {
 
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
+
                       <div className="profile_follower">
                         {author ? (
-                          `${author.followers} followers`
+                          `${followers} followers`
                         ) : (
                           <div className="skeleton-text small"></div>
                         )}
                       </div>
 
-                      <Link to="#" className="btn-main">
-                        Follow
-                      </Link>
+                      <button className="btn-main" onClick={handleFollowToggle}>
+                        {isFollowing ? "Unfollow" : "Follow"}
+                      </button>
+
                     </div>
                   </div>
 
