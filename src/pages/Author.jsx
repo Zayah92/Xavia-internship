@@ -47,23 +47,26 @@ const Author = () => {
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
 
+        {/* BANNER */}
         <section
           id="profile_banner"
           className="text-light"
           style={{
             background: `url(${author?.bannerImage || AuthorBanner}) top`,
           }}
+          data-aos="fade-up"
         ></section>
 
-        <section>
+        <section data-aos="fade-up">
           <div className="container">
             <div className="row">
 
               {/* PROFILE */}
-              <div className="col-md-12">
+              <div className="col-md-12" data-aos="fade-up">
                 <div className="d_profile de-flex">
 
-                  <div className="de-flex-col">
+                  {/* LEFT SIDE */}
+                  <div className="de-flex-col" data-aos="fade-right">
                     <div className="profile_avatar">
                       {author ? (
                         <img src={author.authorImage || AuthorImage} alt="" />
@@ -103,7 +106,8 @@ const Author = () => {
                     </div>
                   </div>
 
-                  <div className="profile_follow de-flex">
+                  {/* RIGHT SIDE */}
+                  <div className="profile_follow de-flex" data-aos="fade-left">
                     <div className="de-flex-col">
 
                       <div className="profile_follower">
@@ -125,7 +129,7 @@ const Author = () => {
               </div>
 
               {/* ITEMS */}
-              <div className="col-md-12">
+              <div className="col-md-12" data-aos="fade-up">
                 <div className="de_tab tab_simple">
                   <AuthorItems
                     items={author?.nftCollection}

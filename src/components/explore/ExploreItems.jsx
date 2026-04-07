@@ -29,7 +29,7 @@ const ExploreItems = () => {
     likes_high_to_low: "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=likes_high_to_low",
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     setLoading(true);
 
     const url = API_MAP[filter] || API_MAP.default;
@@ -49,7 +49,8 @@ const ExploreItems = () => {
 
   return (
     <>
-      <div className="col-12">
+      {/* FILTER */}
+      <div className="col-12" data-aos="fade-up">
         <select
           id="filter-items"
           value={filter}
@@ -62,6 +63,7 @@ const ExploreItems = () => {
         </select>
       </div>
 
+      {/* CARDS */}
       {(loading
         ? new Array(8).fill(0)
         : items.slice(0, visibleCount)
@@ -69,8 +71,11 @@ const ExploreItems = () => {
         <div
           key={index}
           className="col-lg-3 col-md-6 col-sm-6 col-xs-12"
+          data-aos="fade-up"
+          data-aos-delay={index * 100}
         >
           <div className="nft__item">
+
             <div className="author_list_pp">
               {loading ? (
                 <div className="skeleton-circle"></div>
@@ -131,12 +136,14 @@ const ExploreItems = () => {
                 </>
               )}
             </div>
+
           </div>
         </div>
       ))}
 
+      {/* LOAD MORE */}
       {!loading && visibleCount < items.length && (
-        <div className="col-12 text-center">
+        <div className="col-12 text-center" data-aos="fade-up">
           <button
             id="loadmore"
             className="btn-main lead"
