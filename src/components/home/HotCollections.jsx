@@ -37,10 +37,10 @@ const HotCollections = () => {
     },
     breakpoints: {
       "(max-width: 992px)": {
-        slides: { perView: 3 },
+        slides: { perView: 2 },
       },
       "(max-width: 768px)": {
-        slides: { perView: 2 },
+        slides: { perView: 1 },
       },
       "(max-width: 576px)": {
         slides: { perView: 1 },
@@ -49,7 +49,7 @@ const HotCollections = () => {
   });
 
   return (
-    <section id="section-collections" className="no-bottom">
+    <section id="section-collections" className="no-bottom" data-aos="fade-up">
       <div className="container">
         <div className="col-lg-12 text-center">
           <h2>Hot Collections</h2>

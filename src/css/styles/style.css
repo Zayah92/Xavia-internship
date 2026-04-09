@@ -16771,19 +16771,7 @@ img {
     rgba(255, 255, 255, 0.5) 60%,
     rgba(255, 255, 255, 0)
   );
-  -webkit-animation: shimmer 2s infinite;
-  animation: shimmer 2s infinite;
-  content: "";
-}
-@-webkit-keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
-}
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
+
 }
 
 .nft-image {
