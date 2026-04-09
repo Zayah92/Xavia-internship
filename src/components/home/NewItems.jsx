@@ -59,10 +59,10 @@ const getTimeRemaining = (expiryDate, currentTime) => {
 
     breakpoints: {
       "(max-width: 992px)": {
-        slides: { perView: 3 },
+        slides: { perView: 2 },
       },
       "(max-width: 768px)": {
-        slides: { perView: 2 },
+        slides: { perView: 1 },
       },
       "(max-width: 576px)": {
         slides: { perView: 1 },
@@ -82,7 +82,7 @@ useEffect(() => {
 
 
   return (
-    <section id="section-items" className="no-bottom">
+    <section id="section-items" className="no-bottom" data-aos="fade-up">
       <div className="container">
         <div className="row">
 
